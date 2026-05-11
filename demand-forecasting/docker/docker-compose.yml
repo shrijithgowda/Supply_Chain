@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../data:/app/data
+      - ../models:/app/models
+    environment:
+      - API_KEY=prod_secret_key_123
+      - MODEL_SAVE_PATH=models/tft_v1.pt
+    restart: always
+
+  trainer:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ../data:/app/data
+      - ../models:/app/models
+    entrypoint: python mlops/train_pipeline.py
+    depends_on:
+      - api

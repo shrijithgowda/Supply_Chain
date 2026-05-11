@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.ckpt
+*.pt
+*.csv
+node_modules/
+dist/
+venv/
+.venv/
+.env
